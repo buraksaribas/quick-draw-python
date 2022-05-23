@@ -13,6 +13,7 @@ import torch.nn.functional as F
 import torchvision.transforms as transforms
 
 import json
+# https://pypi.org/project/streamlit-drawable-canvas/
 
 # Specify canvas parameters in application
 stroke_color = st.sidebar.color_picker("Stroke color hex: ")
@@ -42,6 +43,8 @@ canvas_result = st_canvas(
     drawing_mode=drawing_mode,
     key='canvas',
 )
+
+
 
 @st.cache
 def load_model():
@@ -87,5 +90,17 @@ if canvas_result.image_data is not None:
     predictions = dict(zip(labels, probs))
     
     st.write('**Top 5 predictions:**')
-    st.text_area('Text to translate')
     st.write(predictions)
+    #print(list(predictions.keys())[0])
+    import requests
+    r = requests.post(
+        "https://api.deepai.org/api/text2img",
+        data={
+            'text': list(predictions.keys())[0],
+        },
+        headers={'api-key': '8af203ea-8407-4e1c-9ed7-a528f85b9da0'}
+    )
+    
+    img = r.json()['output_url']
+    st.image(img)
+
