@@ -65,7 +65,7 @@ with open('categories/id_to_class.json') as file:
 if canvas_result.image_data is not None:
     image = canvas_result.image_data
     
-    # Convert RGBA image to RGB (PIL doesn't convert as I want)
+    # Convert RGBA image to RGB
     image_rgb = Image.fromarray(np.uint8(image)).convert(mode='P')
     image_rgb = np.array(image_rgb)[:, :, np.newaxis]
     image_rgb = np.repeat(image_rgb, repeats=3, axis=2)
