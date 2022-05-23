@@ -15,10 +15,11 @@ import torchvision.transforms as transforms
 import json
 
 # Specify canvas parameters in application
+stroke_color = st.sidebar.color_picker("Stroke color hex: ")
 stroke_width = st.sidebar.slider(
     label='Stroke width:',
     min_value=1, 
-    max_value=25, 
+    max_value=15, 
     value=3
 )
 drawing_mode = st.sidebar.selectbox(
@@ -30,10 +31,11 @@ realtime_update = st.sidebar.checkbox(
     value=True
 )
 
+
 # Create a canvas component
 canvas_result = st_canvas(
     stroke_width=stroke_width,
-    stroke_color='black',
+    stroke_color=stroke_color,
     update_streamlit=realtime_update,
     height=400,
     width=400,
@@ -85,4 +87,5 @@ if canvas_result.image_data is not None:
     predictions = dict(zip(labels, probs))
     
     st.write('**Top 5 predictions:**')
+    st.text_area('Text to translate')
     st.write(predictions)
