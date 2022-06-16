@@ -92,15 +92,32 @@ if canvas_result.image_data is not None:
     st.write('**Top 5 predictions:**')
     st.write(predictions)
     #print(list(predictions.keys())[0])
-    import requests
-    r = requests.post(
-        "https://api.deepai.org/api/text2img",
-        data={
-            'text': list(predictions.keys())[0],
-        },
-        headers={'api-key': '8af203ea-8407-4e1c-9ed7-a528f85b9da0'}
+        
+    
+    from bing_image_urls import bing_image_urls
+    url = bing_image_urls(list(predictions.keys())[0], limit=3)[0]
+    print(url)
+    bad_req = ["familyhandyman","weknowyourdreams"]
+    for b in bad_req:
+        if b in url:
+            url = bing_image_urls(list(predictions.keys())[0], limit=3)[1]
+    print(url)        
+    st.image(
+        url
     )
     
-    img = r.json()['output_url']
-    st.image(img)
-
+    
+    # #https://deepai.org/machine-learning-model/text2img
+    # import requests
+    # r = requests.post(
+    #     "https://api.deepai.org/api/text2img",
+    #     data={
+    #         'text': list(predictions.keys())[0],
+    #     },
+    #     headers={'api-key': '8af203ea-8407-4e1c-9ed7-a528f85b9da0'}
+    # )
+    
+    # img = r.json()['output_url']
+    # st.image(img)
+    
+    

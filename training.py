@@ -18,13 +18,14 @@ print(f'\nTraining in {device}\n')
 model = create_model()
 
 model.to(device)
-summary(model)
+print(summary(model))
 
 # Create the dataset and split it in (train, val, test)
 transform = transforms.Compose([
     transforms.ToTensor(), 
     transforms.Normalize((0.9720, 0.9720, 0.9720), 
-                         (0.1559, 0.1559, 0.1559)) # Normalize with the mean and std of the whole dataset
+                         (0.1559, 0.1559, 0.1559)) 
+    # Normalize with the mean and std of the whole dataset
 ])
 
 dataset = ImageFolder(root='images', transform=transform)
