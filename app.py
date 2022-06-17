@@ -91,16 +91,16 @@ if canvas_result.image_data is not None:
     
     st.write('**Top 5 predictions:**')
     st.write(predictions)
-    #print(list(predictions.keys())[0])
+    print(list(predictions.keys())[0])
         
     
     from bing_image_urls import bing_image_urls
-    url = bing_image_urls(list(predictions.keys())[0], limit=3)[0]
+    url = bing_image_urls(list(predictions.keys())[0], limit=3)[1]
     print(url)
-    bad_req = ["familyhandyman","weknowyourdreams"]
+    bad_req = ["northerntool","ytimg.com","familyhandyman","weknowyourdreams","worlddental","crustncakes","northerntool"]
     for b in bad_req:
         if b in url:
-            url = bing_image_urls(list(predictions.keys())[0], limit=3)[1]
+            url = bing_image_urls(list(predictions.keys())[0], limit=4)[3]
     print(url)        
     st.image(
         url
